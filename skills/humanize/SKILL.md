@@ -1,6 +1,6 @@
 ---
 name: humanize
-description: Rewrite prose to sound human and earn engagement. Strips AI tells AND adds voice, opinion, specificity, and stakes. Use when drafting or editing LinkedIn posts, articles, captions, outreach, or any content where a real human voice drives reads, comments, and shares.
+description: Rewrite prose to sound human and earn engagement. Strips AI tells AND adds voice, opinion, specificity, and stakes. Use when drafting or editing LinkedIn posts, articles, captions, emails, documents, slide decks, video scripts, outreach, or any content where a real human voice drives reads, replies, and shares.
 metadata:
   trigger: Writing or editing posts, articles, captions, outreach, or any prose meant to be read by humans
   author: Hybrid of stop-slop (Hardik Pandya, hvpandya.com) and tagore (github.com/apurvrdx1/tagore), both MIT

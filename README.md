@@ -13,6 +13,25 @@ The rules have two halves:
 One rule sits on top: **never invent facts.** When a rewrite needs a number or name the draft doesn't have, the
 model writes a `[placeholder]` instead of making one up.
 
+## The easy way: the app
+
+No command line. Fill in a form, click a button.
+
+1. **Download the kit.** On this page, click the green **Code** button, then **Download ZIP**. Unzip it.
+2. **Double-click `Start Humanize`.** Use `Start Humanize.bat` on Windows or `Start Humanize.command` on a
+   Mac. The first time on a Mac, right-click it and choose **Open**.
+3. **Your browser opens the app.** Leave the small black window open while you use it.
+
+| Tab | What you do there |
+|---|---|
+| **Check text** | Paste anything and click **Check it**. Every AI tell gets highlighted, with a tip for each. |
+| **Compare models** | Pick providers from a list, paste your API keys, tick the drafts, click **Run**. You get a scored table and every rewrite side by side. |
+| **Prompts** | Copy any prompt or guide prompt with one click. |
+
+The app needs Python, which is free from [python.org](https://www.python.org/downloads/). If it's missing, the
+start file tells you. The app runs only on your computer. Your API keys go straight to the provider you
+picked and are saved only if you tick **Remember**.
+
 ## What's inside
 
 | Folder / file | What it is |
@@ -21,14 +40,27 @@ model writes a `[placeholder]` instead of making one up.
 | `prompts/humanize_core.md` | The same rules, compressed (~4k characters). Fits a Custom GPT or Gemini Gem. |
 | `prompts/humanize_tiny.txt` | A short version (under 800 characters) for small "custom instructions" boxes. |
 | `prompts/judge_prompt.md` | A prompt that makes any model score a rewrite /80 and flag invented facts. |
+| `Start Humanize` (.bat / .command) | Double-click to open the app in your browser. |
+| `tools/app.py` | The app behind the start files. |
 | `tools/slop_check.py` | Counts AI tells in any text. No model, no internet. Same score for every model. |
 | `tools/compare_models.py` | Sends the same drafts to several models and writes a side-by-side report. |
 | `tools/models.example.json` | Example settings for OpenAI, Gemini, Claude, DeepSeek, OpenRouter and Ollama. |
 | `docs/` | How-to guides with copy-paste prompts for [emails](docs/emails.md), [documents](docs/documents.md), [presentations](docs/presentations.md) and [video scripts](docs/video-scripts.md). |
 | `samples/` | Seven deliberately AI-sounding drafts to test with: a post, an article opener, a cold email, a product blurb, a business update, a slide deck and a report section. |
-| `skill-folders/` | The original skill folders (`SKILL.md` + references), for tools that load skill folders. |
+| `skills/` | The two skills as `SKILL.md` folders, for AI tools that load skills. See [INSTALL.md](INSTALL.md). |
 
 The tools need Python 3.8 or newer and nothing else.
+
+## Install it in your AI tool
+
+Using Claude Code, Codex, GitHub Copilot, Cursor or Gemini CLI? Paste this:
+
+```
+Install the humanize skills from https://github.com/weellio/humanize for me. Follow INSTALL.md in that repo.
+```
+
+Then start a new session. [INSTALL.md](INSTALL.md) also covers the Claude Code plugin, and uploading the skills
+to the Claude desktop app or claude.ai.
 
 ## Use it in a chat app (no code)
 

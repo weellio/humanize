@@ -1,0 +1,16 @@
+{
+  "name": "weellio-humanize",
+  "owner": { "name": "weellio" },
+  "metadata": {
+    "description": "Writing skills that make AI output sound like a person wrote it."
+  },
+  "plugins": [
+    {
+      "name": "humanize",
+      "source": "./",
+      "description": "Make AI writing sound human: the humanize and stop-slop skills for posts, emails, documents, slides and scripts.",
+      "version": "1.0.0",
+      "license": "MIT"
+    }
+  ]
+}

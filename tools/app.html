@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humanize kit</title>
+<style>
+:root {
+  --bg: #f3f5f8; --surface: #ffffff; --surface-2: #eef1f6; --text: #1b2230; --muted: #566074;
+  --border: #d6dbe4; --primary: #1f3a93; --primary-text: #ffffff; --mark: #ffe45c; --mark-text: #1b2230;
+  --clean: #1d7a4b; --light: #9a5a00; --heavy: #b3261e; --focus: #1f3a93;
+  --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 4px 14px rgba(20, 30, 50, .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --surface: #1a2029; --surface-2: #222a35; --text: #e5e9f0; --muted: #a0aabb;
+    --border: #2e3746; --primary: #9db2ff; --primary-text: #0f1420; --mark: #6a5a00; --mark-text: #fff6c2;
+    --clean: #5fd39a; --light: #f0b252; --heavy: #ff8a80; --focus: #9db2ff; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --surface: #1a2029; --surface-2: #222a35; --text: #e5e9f0; --muted: #a0aabb;
+  --border: #2e3746; --primary: #9db2ff; --primary-text: #0f1420; --mark: #6a5a00; --mark-text: #fff6c2;
+  --clean: #5fd39a; --light: #f0b252; --heavy: #ff8a80; --focus: #9db2ff; --shadow: none;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+p { margin: 0 0 .8em; }
+h1, h2, h3 { line-height: 1.25; text-wrap: balance; margin: 0; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.08rem; }
+a { color: var(--primary); }
+code, pre, textarea.mono { font-family: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+header { background: var(--surface); border-bottom: 1px solid var(--border); }
+.bar { max-width: 980px; margin: 0 auto; padding: 14px 16px 0; }
+.brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand h1 { font-size: 1.45rem; letter-spacing: -.01em; }
+.brand h1 span { background: linear-gradient(transparent 55%, var(--mark) 55%); color: inherit; padding: 0 2px; }
+.brand p { margin: 0; color: var(--muted); font-size: .95rem; }
+nav { display: flex; gap: 4px; margin-top: 10px; overflow-x: auto; }
+nav button {
+  border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600; padding: 10px 14px;
+  border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
+}
+nav button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--primary); }
+
+main { max-width: 980px; margin: 0 auto; padding: 22px 16px 60px; }
+section[role="tabpanel"] { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+section[hidden] { display: none; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: var(--shadow); }
+.card > h2, .card > h3 { margin-bottom: 6px; }
+.hint { color: var(--muted); font-size: .93rem; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1 1 auto; }
+
+label { font-weight: 600; font-size: .92rem; display: block; margin-bottom: 4px; }
+input[type=text], input[type=password], select, textarea {
+  width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 11px;
+}
+textarea { min-height: 190px; resize: vertical; line-height: 1.55; }
+.btn {
+  font: inherit; font-weight: 650; border-radius: 8px; padding: 10px 18px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.btn.primary { background: var(--primary); border-color: var(--primary); color: var(--primary-text); }
+.btn.small { padding: 5px 11px; font-size: .9rem; }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn.link { background: none; border: 0; color: var(--primary); padding: 4px 6px; text-decoration: underline; }
+
+.pill { display: inline-block; font-weight: 700; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 999px; border: 2px solid currentColor; }
+.pill.clean { color: var(--clean); } .pill.light { color: var(--light); } .pill.heavy { color: var(--heavy); }
+.score { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.big { font-size: 2rem; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1; }
+.stats { color: var(--muted); font-size: .93rem; }
+.tells { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tells li { padding: 9px 12px; border-radius: 8px; background: var(--surface-2); }
+.tells b { margin-right: 6px; }
+.tells .tip { color: var(--muted); font-size: .9rem; display: block; }
+mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; padding: 0 2px; }
+.marked { white-space: pre-wrap; background: var(--surface-2); border-radius: 8px; padding: 14px; margin-top: 12px; }
+.soft { font-weight: 400; color: var(--muted); font-size: .85rem; }
+
+.models { display: grid; gap: 12px; }
+.model { border: 1px solid var(--border); border-radius: 10px; padding: 14px; background: var(--surface); }
+.model .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 10px 14px; }
+.model .fields > div { min-width: 0; }
+.model .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+.model .top strong { font-size: 1.02rem; }
+.keyrow { display: flex; gap: 6px; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+.choice { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px; cursor: pointer; font-weight: 400; margin: 0; background: var(--surface); }
+.choice input { margin-top: 5px; }
+.choice b { display: block; }
+.choice span { color: var(--muted); font-size: .9rem; }
+.drafts { display: grid; gap: 6px; }
+.drafts label { font-weight: 400; display: flex; gap: 10px; align-items: center; margin: 0; }
+.own { display: grid; gap: 8px; margin-top: 10px; }
+.own textarea { min-height: 110px; }
+
+.progress { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; width: 0; background: var(--primary); transition: width .3s; }
+@media (prefers-reduced-motion: reduce) { .progress div { transition: none; } }
+.status { font-size: .95rem; color: var(--muted); }
+.error { color: var(--heavy); font-weight: 600; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+td.best { font-weight: 750; }
+details { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+details > summary { cursor: pointer; padding: 12px 14px; font-weight: 650; }
+details > .inner { padding: 0 14px 14px; display: grid; gap: 12px; }
+.rewrite { border-left: 4px solid var(--border); padding: 4px 0 4px 12px; }
+.rewrite.clean { border-left-color: var(--clean); } .rewrite.light { border-left-color: var(--light); }
+.rewrite.heavy { border-left-color: var(--heavy); }
+.rewrite pre, .prompt pre { white-space: pre-wrap; word-break: break-word; margin: 8px 0; font-size: .92rem;
+  background: var(--surface-2); padding: 12px; border-radius: 8px; max-height: 340px; overflow: auto; }
+.meta { color: var(--muted); font-size: .9rem; }
+.rewrite pre, pre.marked { font-family: inherit; font-size: 1rem; line-height: 1.6; }
+.prompts { display: grid; gap: 10px; }
+.prompt { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--surface); }
+.prompt .row { justify-content: space-between; }
+.toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg);
+  padding: 9px 16px; border-radius: 8px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.toast.show { opacity: 1; }
+.themebtn { margin-left: auto; }
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.stack[hidden] { display: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .card { padding: 14px; }
+  .big { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand">
+      <h1><span>Humanize</span> kit</h1>
+      <p>Make AI writing sound like a person wrote it.</p>
+      <button class="btn small link themebtn" id="theme" type="button">Dark mode</button>
+    </div>
+    <nav role="tablist" aria-label="Sections">
+      <button role="tab" aria-selected="true" aria-controls="tab-check" id="t-check">Check text</button>
+      <button role="tab" aria-selected="false" aria-controls="tab-compare" id="t-compare">Compare models</button>
+      <button role="tab" aria-selected="false" aria-controls="tab-prompts" id="t-prompts">Prompts</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- CHECK -->
+  <section role="tabpanel" id="tab-check" aria-labelledby="t-check">
+    <div class="card">
+      <h2>Check any text for AI tells</h2>
+      <p class="hint">Paste a draft or a rewrite. Nothing leaves this computer.</p>
+      <label for="checkText" class="sr">Text to check</label>
+      <textarea id="checkText" placeholder="Paste your text here"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="checkBtn" type="button">Check it</button>
+        <select id="sampleSel" style="width:auto"><option value="">Load an example draft</option></select>
+        <button class="btn link" id="clearBtn" type="button">Clear</button>
+      </div>
+    </div>
+    <div class="card" id="checkOut" hidden></div>
+  </section>
+
+  <!-- COMPARE -->
+  <section role="tabpanel" id="tab-compare" aria-labelledby="t-compare" hidden>
+    <div class="card">
+      <h2>1. Models to compare</h2>
+      <p class="hint">Pick a provider, paste your API key, and check the model name. Keys go straight from this computer
+        to the provider.</p>
+      <div class="models" id="models"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="addModel" type="button">+ Add a model</button>
+        <label class="row" style="font-weight:400;margin:0"><input type="checkbox" id="remember">
+          Remember models and keys in this browser</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Which prompt</h2>
+      <div class="choices" id="promptChoices"></div>
+    </div>
+
+    <div class="card">
+      <h2>3. Drafts to rewrite</h2>
+      <p class="hint">Each model rewrites every draft you tick. More drafts give a fairer result but take longer.</p>
+      <div class="drafts" id="drafts"></div>
+      <div class="own" id="ownDrafts"></div>
+      <button class="btn small" id="addOwn" type="button" style="margin-top:10px">+ Add your own draft</button>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <button class="btn primary" id="runBtn" type="button">Run the comparison</button>
+        <button class="btn" id="stopBtn" type="button" hidden>Stop</button>
+        <span class="status grow" id="runStatus"></span>
+      </div>
+      <div class="progress" id="progress" hidden style="margin-top:12px"><div></div></div>
+      <p class="error" id="runError" hidden style="margin-top:10px"></p>
+    </div>
+
+    <div id="results" class="stack" hidden></div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section role="tabpanel" id="tab-prompts" aria-labelledby="t-prompts" hidden>
+    <div class="card">
+      <h2>Load one of these into your chat app first</h2>
+      <p class="hint">They hold the same rules at three sizes. Use the biggest one your app accepts.</p>
+      <div class="prompts" id="mainPrompts"></div>
+    </div>
+    <div class="card">
+      <h2>Then send one of these with your draft</h2>
+      <p class="hint">Fill in the [brackets]. The guides in the docs folder explain each one.</p>
+      <div class="prompts" id="guidePrompts"></div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
+};
+let INFO = null;
+
+const LABELS = {
+  em_dash: ["Dashes", "Use a comma, colon or period instead."],
+  mirroring: ["Mirroring the reader", "They know their own situation. Get to your point."],
+  pleasantry_filler: ["Stock pleasantries", "Start with why you're writing."],
+  throat_clearing: ["Throat-clearing opener", "State the point."],
+  emphasis_crutch: ["Emphasis crutch", "Delete it. The point stands on its own."],
+  filler_phrase: ["Filler phrase", "Cut it."],
+  meta_commentary: ["Talking about the text", "Let the piece move. Cut the signpost."],
+  jargon: ["Business jargon", "Use the plain word."],
+  inflated_word: ["Inflated word", "Say the real size of the thing."],
+  listed_adverb: ["Padding adverb", "Cut it or pick a stronger verb."],
+  binary_contrast: ["'Not X, it's Y' contrast", "State Y."],
+  vague_declarative: ["Vague claim", "Name the specific thing."],
+  hidden_actor: ["Hidden actor", "Say who did it."],
+  rhetorical_setup: ["Rhetorical setup", "Make the point instead."],
+  false_agency: ["Thing doing a human verb", "Name the person who did it."],
+  possible_passive: ["Possible passive voice", "Put the person doing it first."],
+  lazy_extreme: ["Always, never, everyone", "Use a real number or name."],
+  three_item_list: ["List of three", "Two items, or one, often read better."],
+  so_or_look_opener: ["'So' or 'Look' opener", "Start with the point."],
+  other_ly_word: ["Other -ly word", "Check it's doing real work."],
+  wh_opener: ["What / Why / How opener", "Lead with the subject."],
+  same_length_run: ["Same-length sentences", "Mix short and long."],
+};
+
+async function api(path, body) {
+  const opt = body === undefined ? {} : {method: "POST", headers: {"Content-Type": "application/json", "X-Token": INFO.token}, body: JSON.stringify(body)};
+  const r = await fetch(path, opt);
+  const data = await r.json().catch(() => ({error: "The app stopped answering. Is its window still open?"}));
+  if (!r.ok) throw new Error(data.error || "Something went wrong.");
+  return data;
+}
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove("show"), 1600);
+}
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); }
+  catch { const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta); ta.select(); document.execCommand("copy"); ta.remove(); }
+  toast("Copied");
+}
+
+/* ---------- tabs + theme ---------- */
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function showTab(id) {
+  tabs.forEach(t => {
+    const on = t.id === id; t.setAttribute("aria-selected", on);
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  store.set("tab", id);
+}
+tabs.forEach(t => t.addEventListener("click", () => showTab(t.id)));
+function applyTheme(th) {
+  if (th) document.documentElement.dataset.theme = th; else delete document.documentElement.dataset.theme;
+  const dark = th ? th === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  $("#theme").textContent = dark ? "Light mode" : "Dark mode";
+}
+$("#theme").addEventListener("click", () => {
+  const dark = $("#theme").textContent === "Dark mode";
+  store.set("theme", dark ? "dark" : "light"); applyTheme(dark ? "dark" : "light");
+});
+applyTheme(store.get("theme"));
+
+/* ---------- check ---------- */
+function highlight(text, hits) {
+  const ex = [];
+  for (const [cat, h] of Object.entries(hits)) {
+    if (["same_length_run", "wh_opener", "three_item_list", "other_ly_word"].includes(cat)) continue;
+    h.examples.forEach(e => e && e.length > 1 && ex.push(e));
+  }
+  if (!ex.length) return esc(text);
+  const re = new RegExp("(" + [...new Set(ex)].sort((a, b) => b.length - a.length)
+    .map(e => e.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "gi");
+  return text.split(re).map((part, i) => i % 2 ? `<mark>${esc(part)}</mark>` : esc(part)).join("");
+}
+function tellList(hits) {
+  const items = Object.entries(hits).sort((a, b) => b[1].weight * b[1].count - a[1].weight * a[1].count);
+  if (!items.length) return `<p>No tells found.</p>`;
+  return `<ul class="tells">` + items.map(([cat, h]) => {
+    const [name, tip] = LABELS[cat] || [cat, ""];
+    return `<li><b>${esc(name)}</b>×${h.count}${h.weight < 1 ? ' <span class="soft">(minor)</span>' : ""}
+      <span class="tip">${esc(tip)} e.g. ${h.examples.slice(0, 3).map(e => "“" + esc(e) + "”").join(", ")}</span></li>`;
+  }).join("") + `</ul>`;
+}
+function verdict(g) {
+  return {clean: "Reads clean. The banned habits are gone.", light: "A few tells left. Worth one more pass.",
+          heavy: "Reads like AI. Rewrite it with the prompt."}[g];
+}
+async function runCheck() {
+  const text = $("#checkText").value;
+  if (!text.trim()) { $("#checkText").focus(); return toast("Paste some text first"); }
+  const r = await api("/api/check", {text});
+  const out = $("#checkOut"); out.hidden = false;
+  out.innerHTML = `
+    <div class="score">
+      <span class="pill ${r.grade}">${r.grade}</span>
+      <span><span class="big">${r.tells_per_100_words}</span> tells per 100 words</span>
+    </div>
+    <p>${verdict(r.grade)}</p>
+    <p class="stats">${r.words} words · ${r.sentences} sentences · sentence-length variety ${r.rhythm_cv ?? "n/a"}
+      ${r.rhythm_cv !== null && r.rhythm_cv < .35 ? "(too even, mix it up)" : ""}</p>
+    <h3 style="margin:14px 0 8px">What it found</h3>
+    ${tellList(r.hits)}
+    <h3 style="margin:16px 0 0">Your text, with tells marked</h3>
+    <div class="marked">${highlight(text, r.hits)}</div>
+    <p class="hint" style="margin-top:10px">This counts patterns. It can't tell you whether the writing is good.</p>`;
+  out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+}
+$("#checkBtn").addEventListener("click", () => runCheck().catch(e => toast(e.message)));
+$("#clearBtn").addEventListener("click", () => { $("#checkText").value = ""; $("#checkOut").hidden = true; });
+$("#sampleSel").addEventListener("change", e => {
+  const s = INFO.samples.find(x => x.name === e.target.value);
+  if (s) { $("#checkText").value = s.text; e.target.value = ""; runCheck().catch(err => toast(err.message)); }
+});
+
+/* ---------- compare: models ---------- */
+let models = [];
+function preset(id) { return INFO.presets.find(p => p.id === id) || INFO.presets.at(-1); }
+function newModel(pid = "openai", role = "compare") {
+  const p = preset(pid);
+  return {preset: p.id, name: p.id === "custom" ? "" : p.id, model: p.model, base_url: p.base_url, api_key: "", role};
+}
+function saveModels() {
+  if ($("#remember").checked) store.set("models", models); else store.del("models");
+  store.set("remember", $("#remember").checked);
+}
+function renderModels() {
+  $("#models").innerHTML = models.map((m, i) => {
+    const p = preset(m.preset);
+    return `<div class="model" data-i="${i}">
+      <div class="top"><strong>${m.role === "judge" ? "Judge" : "Model " + (models.slice(0, i + 1).filter(x => x.role !== "judge").length)}</strong>
+        <button class="btn small link" data-act="remove" type="button">Remove</button></div>
+      <div class="fields">
+        <div><label>Provider</label><select data-f="preset">${INFO.presets.map(o =>
+          `<option value="${o.id}" ${o.id === m.preset ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select></div>
+        <div><label>Model name</label><input type="text" data-f="model" value="${esc(m.model)}" placeholder="e.g. gpt-4.1"></div>
+        <div><label>API key ${p.key ? "" : '<span class="soft">(not needed)</span>'}</label>
+          <div class="keyrow"><input type="password" data-f="api_key" value="${esc(m.api_key)}" autocomplete="off" placeholder="${p.key ? "Paste your key" : "Leave empty"}">
+          <button class="btn small" data-act="show" type="button">Show</button></div></div>
+        <div><label>Role</label><select data-f="role">
+          <option value="compare" ${m.role !== "judge" ? "selected" : ""}>Compare it</option>
+          <option value="judge" ${m.role === "judge" ? "selected" : ""}>Judge (scores the others)</option></select></div>
+        <div><label>Label in results</label><input type="text" data-f="name" value="${esc(m.name)}" placeholder="e.g. my-gpt"></div>
+        <div><label>Address <span class="soft">(base URL)</span></label><input type="text" data-f="base_url" value="${esc(m.base_url)}" placeholder="https://.../v1"></div>
+      </div></div>`;
+  }).join("") || `<p class="hint">No models yet. Add one below.</p>`;
+}
+$("#models").addEventListener("input", e => {
+  const card = e.target.closest(".model"); if (!card) return;
+  const m = models[card.dataset.i], f = e.target.dataset.f; if (!f) return;
+  if (f === "preset") {
+    const p = preset(e.target.value);
+    Object.assign(m, {preset: p.id, base_url: p.base_url, model: p.model});
+    if (!m.name || INFO.presets.some(x => x.id === m.name)) m.name = p.id === "custom" ? "" : p.id;
+    renderModels();
+  } else {
+    m[f] = e.target.value;
+    if (f === "role") {
+      if (m.role === "judge") models.forEach(o => { if (o !== m && o.role === "judge") o.role = "compare"; });
+      renderModels();
+    }
+  }
+  saveModels();
+});
+$("#models").addEventListener("click", e => {
+  const card = e.target.closest(".model"); if (!card) return;
+  if (e.target.dataset.act === "remove") { models.splice(card.dataset.i, 1); renderModels(); saveModels(); }
+  if (e.target.dataset.act === "show") {
+    const inp = e.target.previousElementSibling; const hide = inp.type === "text";
+    inp.type = hide ? "password" : "text"; e.target.textContent = hide ? "Show" : "Hide";
+  }
+});
+$("#addModel").addEventListener("click", () => {
+  const used = new Set(models.map(m => m.preset));
+  const next = ["openai", "gemini", "claude", "deepseek", "openrouter", "ollama"].find(p => !used.has(p)) || "custom";
+  models.push(newModel(next)); renderModels(); saveModels();
+});
+$("#remember").addEventListener("change", saveModels);
+
+/* ---------- compare: prompt + drafts ---------- */
+const PROMPT_TEXT = {
+  full: ["Full", "All rules and examples. Best quality."],
+  core: ["Core", "Compressed. Small local models often do better with it."],
+  tiny: ["Tiny", "The short version for small custom-instruction boxes."],
+};
+function renderSetup() {
+  const sel = store.get("prompt") || "full";
+  $("#promptChoices").innerHTML = INFO.prompts.map(p => `<label class="choice">
+    <input type="radio" name="prompt" value="${p.id}" ${p.id === sel ? "checked" : ""}>
+    <span><b>${PROMPT_TEXT[p.id][0]}</b> <span>${p.chars.toLocaleString()} characters. ${PROMPT_TEXT[p.id][1]}</span></span></label>`).join("");
+  $("#drafts").innerHTML = INFO.samples.map(s => `<label><input type="checkbox" value="${esc(s.name)}" checked>
+    ${esc(s.name.replace(/^\d+_/, "").replace(/_/g, " "))} <span class="soft">${s.text.split(/\s+/).length} words</span></label>`).join("");
+}
+$("#promptChoices").addEventListener("change", e => store.set("prompt", e.target.value));
+$("#addOwn").addEventListener("click", () => {
+  const n = $("#ownDrafts").children.length + 1;
+  const d = document.createElement("div");
+  d.innerHTML = `<div class="row"><label style="margin:0" class="grow">Your draft ${n}</label>
+    <button class="btn small link" type="button">Remove</button></div><textarea placeholder="Paste a draft"></textarea>`;
+  d.querySelector("button").addEventListener("click", () => d.remove());
+  $("#ownDrafts").append(d); d.querySelector("textarea").focus();
+});
+
+/* ---------- compare: run ---------- */
+let job = null, poll = null;
+async function run() {
+  $("#runError").hidden = true;
+  const samples = [...document.querySelectorAll("#drafts input:checked")].map(c => INFO.samples.find(s => s.name === c.value));
+  [...document.querySelectorAll("#ownDrafts textarea")].forEach((t, i) => t.value.trim() && samples.push({name: `your_draft_${i + 1}`, text: t.value}));
+  const missingKey = models.find(m => m.model && preset(m.preset).key && !m.api_key.trim());
+  if (missingKey) return showError(`${missingKey.name || "A model"} needs an API key.`);
+  try {
+    job = await api("/api/run", {models, prompt: document.querySelector('input[name="prompt"]:checked').value, samples});
+  } catch (e) { return showError(e.message); }
+  $("#runBtn").disabled = true; $("#stopBtn").hidden = false; $("#progress").hidden = false; $("#results").hidden = true;
+  poll = setInterval(update, 1000); update();
+}
+function showError(msg) { const el = $("#runError"); el.textContent = msg; el.hidden = false; }
+async function update() {
+  try { job = await api("/api/job/" + job.id); } catch (e) { clearInterval(poll); return showError(e.message); }
+  $("#progress div").style.width = (job.total ? 100 * job.done / job.total : 0) + "%";
+  $("#runStatus").textContent = `${job.status} · ${job.done} of ${job.total}`;
+  if (job.finished) {
+    clearInterval(poll); $("#runBtn").disabled = false; $("#stopBtn").hidden = true;
+    $("#runStatus").textContent = `${job.status}. ${job.done} of ${job.total} rewrites.`;
+    renderResults();
+  }
+}
+$("#runBtn").addEventListener("click", run);
+$("#stopBtn").addEventListener("click", () => api("/api/stop", {id: job.id}).catch(() => {}));
+
+function avg(xs) { return xs.length ? Math.round(10 * xs.reduce((a, b) => a + b, 0) / xs.length) / 10 : null; }
+function renderResults() {
+  const rows = job.rows, judged = !!job.judge;
+  const sum = job.models.map(name => {
+    const mine = rows.filter(r => r.model === name), ok = mine.filter(r => !r.error);
+    const js = ok.map(r => r.judge && r.judge.total).filter(x => typeof x === "number");
+    return {name, slop: avg(ok.map(r => r.slop.tells_per_100_words)), judge: avg(js),
+      passes: ok.filter(r => r.judge && r.judge.pass).length, ok: ok.length,
+      invented: ok.reduce((n, r) => n + ((r.judge && r.judge.invented_facts) || []).length, 0),
+      errors: mine.length - ok.length, secs: avg(ok.map(r => r.seconds)),
+      firstError: (mine.find(r => r.error) || {}).error};
+  });
+  const minSlop = Math.min(...sum.filter(s => s.slop !== null).map(s => s.slop));
+  const maxJudge = Math.max(...sum.filter(s => s.judge !== null).map(s => s.judge));
+  const head = `<div class="card"><div class="row"><h2 class="grow">Results</h2>
+    <button class="btn" id="openFolder" type="button">Open the report folder</button></div>
+    <p class="hint">Tells: lower is better, under 1.5 is clean.${judged ? " Judge: out of 80, a pass needs 56. Invented facts should be 0." : " Add a judge model to also score quality out of 80."}</p>
+    <div class="tablewrap"><table><thead><tr><th>Model</th><th>Avg tells /100 words</th>
+    ${judged ? "<th>Avg judge /80</th><th>Passes</th><th>Invented facts</th>" : ""}<th>Errors</th><th>Avg seconds</th></tr></thead><tbody>
+    ${sum.map(s => `<tr><td>${esc(s.name)}</td><td class="${s.slop === minSlop ? "best" : ""}">${s.slop ?? "-"}</td>
+      ${judged ? `<td class="${s.judge === maxJudge ? "best" : ""}">${s.judge ?? "-"}</td><td>${s.passes}/${s.ok}</td><td>${s.invented}</td>` : ""}
+      <td>${s.errors ? `<span class="error" title="${esc(s.firstError)}">${s.errors}</span>` : 0}</td><td>${s.secs ?? "-"}</td></tr>`).join("")}
+    </tbody></table></div>
+    ${sum.filter(s => s.firstError).map(s => `<p class="error" style="margin-top:8px">${esc(s.name)}: ${esc(s.firstError.slice(0, 220))}</p>`).join("")}
+    <p class="hint" style="margin-top:8px">Run it twice before you trust a small gap. The same model can swing a few points.</p></div>`;
+  const names = [...new Set(rows.map(r => r.sample))];
+  const detail = names.map(n => {
+    const g = rows.filter(r => r.sample === n), b = g[0].before;
+    return `<details><summary>${esc(n.replace(/^\d+_/, "").replace(/_/g, " "))}
+      <span class="soft">· draft scored ${b.tells_per_100_words}</span></summary><div class="inner">
+      <div><b>Original draft</b><pre class="marked" style="margin:6px 0 0">${highlight(g[0].original, b.hits)}</pre></div>
+      ${g.map(r => r.error ? `<div class="rewrite heavy"><b>${esc(r.model)}</b><p class="error">${esc(r.error.slice(0, 300))}</p></div>` :
+        `<div class="rewrite ${r.slop.grade}"><div class="row"><b class="grow">${esc(r.model)}</b>
+          <span class="pill ${r.slop.grade}">${r.slop.tells_per_100_words}</span>
+          ${r.judge && typeof r.judge.total === "number" ? `<span class="meta">judge ${r.judge.total}/80 ${r.judge.pass ? "pass" : "fail"}</span>` : ""}
+          <button class="btn small" data-copy type="button">Copy</button></div>
+          <pre>${highlight(r.rewrite, r.slop.hits)}</pre>
+          ${Object.keys(r.slop.hits).length ? `<p class="meta">Tells left: ${Object.entries(r.slop.hits).map(([k, h]) => esc((LABELS[k] || [k])[0]) + " ×" + h.count).join(", ")}</p>` : ""}
+          ${r.judge && r.judge.invented_facts && r.judge.invented_facts.length ? `<p class="error">Invented: ${esc(r.judge.invented_facts.join("; "))}</p>` : ""}
+          ${r.judge && r.judge.worst_tell ? `<p class="meta">Judge's worst tell: ${esc(r.judge.worst_tell)}</p>` : ""}
+        </div>`).join("")}
+    </div></details>`;
+  }).join("");
+  const box = $("#results"); box.hidden = false; box.innerHTML = head + detail;
+  box.querySelectorAll("[data-copy]").forEach((btn, i) => {
+    const r = rows.filter(x => !x.error)[i]; btn.addEventListener("click", () => copy(r.rewrite));
+  });
+  $("#openFolder").addEventListener("click", () => api("/api/open", {id: job.id}).then(() => toast("Opened")).catch(e => toast(e.message)));
+}
+
+/* ---------- prompts tab ---------- */
+const FITS = {
+  full: "Claude Projects, an API system prompt, or a knowledge file in a Custom GPT or Gemini Gem.",
+  core: "Custom GPT or Gemini Gem instructions.",
+  tiny: "ChatGPT Settings > Personalization > Custom instructions.",
+};
+function renderPrompts() {
+  $("#mainPrompts").innerHTML = INFO.prompts.map(p => `<div class="prompt"><div class="row">
+    <div><b>${PROMPT_TEXT[p.id][0]}</b> <span class="soft">${p.chars.toLocaleString()} characters</span><br>
+    <span class="meta">Fits: ${FITS[p.id]}</span></div>
+    <button class="btn primary small" data-p="${p.id}" type="button">Copy</button></div></div>`).join("");
+  $("#mainPrompts").querySelectorAll("[data-p]").forEach(b =>
+    b.addEventListener("click", () => copy(INFO.prompts.find(p => p.id === b.dataset.p).text)));
+  $("#guidePrompts").innerHTML = INFO.guides.map((g, gi) => `<details ${gi === 0 ? "open" : ""}><summary>${esc(g.guide)}
+    <span class="soft">· ${g.prompts.length} prompts</span></summary><div class="inner">
+    ${g.prompts.map((p, pi) => `<div class="prompt"><div class="row"><b>${esc(p.title)}</b>
+      <button class="btn small" data-g="${gi}.${pi}" type="button">Copy</button></div><pre>${esc(p.text)}</pre></div>`).join("")}
+    </div></details>`).join("");
+  $("#guidePrompts").querySelectorAll("[data-g]").forEach(b => b.addEventListener("click", () => {
+    const [gi, pi] = b.dataset.g.split(".").map(Number); copy(INFO.guides[gi].prompts[pi].text);
+  }));
+}
+
+/* ---------- start ---------- */
+(async () => {
+  try { INFO = await api("/api/info"); }
+  catch (e) { document.querySelector("main").innerHTML = `<div class="card"><p class="error">${esc(e.message)}</p></div>`; return; }
+  $("#sampleSel").innerHTML += INFO.samples.map(s => `<option value="${esc(s.name)}">${esc(s.name.replace(/^\d+_/, "").replace(/_/g, " "))}</option>`).join("");
+  $("#remember").checked = !!store.get("remember");
+  models = store.get("models") || [newModel("openai"), newModel("gemini")];
+  renderModels(); renderSetup(); renderPrompts();
+  const t = store.get("tab"); if (t && document.getElementById(t)) showTab(t);
+})();
+</script>
+</body>
+</html>
