@@ -88,6 +88,29 @@ Example: [paste]
 Section: [paste]
 ```
 
+### Help page or in-app text
+
+```
+Rewrite this text from an app. Every line must help someone use the tool. Keep labels, one short
+instruction beside anything that isn't obvious, and errors that say what to do next. Cut notes about
+where the data came from, repeated disclaimers, intros and hedges.
+
+[paste the text]
+```
+
+### Make it easy to skim
+
+```
+Reformat this for someone skimming on a phone. Short lines with one idea each. Bold the keyword at
+the start of each line. Use a table for comparisons and numbered steps for processes. Don't change
+the facts or cut content.
+
+[paste the text]
+```
+
+Some readers can't take in a wall of text at all, dyslexic readers among them. For them, formatting decides
+whether the document gets read.
+
 ## Long documents, step by step
 
 1. Load the full prompt (`humanize_full.md`) once at the start of the chat.

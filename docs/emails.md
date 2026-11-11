@@ -12,6 +12,14 @@ The main rules still apply. Email adds four of its own:
 - **End on the ask.** Posts end on a question to get comments. An email ends on what you want the person to
   do.
 
+Four more rules came from drafts that went out to real people:
+
+- **Don't mirror their situation back to them.** "What I'm hearing is..." or "That kind of patience is
+  hard-earned" tells them what they already know. It reads as condescending.
+- **Promise only what you can deliver.** A short honest note beats a polished pitch.
+- **Saying it isn't a fit is fine.** Pass kindly and leave the door open.
+- **Match their energy.** A two-line message gets a short reply, not five paragraphs.
+
 ## Prompts to copy
 
 ### Rewrite a draft

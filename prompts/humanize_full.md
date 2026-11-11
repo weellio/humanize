@@ -50,7 +50,8 @@ source's own stance.
    ("the data tells us" becomes "we read the data and saw...").
 4. **Be specific.** No vague declaratives ("the implications are significant"). Name the thing.
 5. **Put the reader in the room.** "You" beats "people." No narrator floating above the scene.
-6. **Vary rhythm.** Mix sentence lengths. Two items beat three. No em dashes at all.
+6. **Vary rhythm.** Mix sentence lengths. Two items beat three. No em dashes or en dashes at all; ranges use a
+   hyphen (3-5).
 7. **Trust readers.** State facts directly. Skip softening and hand-holding.
 8. **Cut quotables.** If a line sounds like a pull-quote, rewrite it.
 
@@ -164,6 +165,39 @@ a bot." A point of view is the line between wire copy and a person talking.
   "Introduction" or "Conclusion"); one vivid example beats three vague claims.
 - **Captions:** the first one or two lines carry it. One hook, one takeaway, one soft prompt.
 - **Links and hashtags:** links go in the first comment on LinkedIn; zero to three hashtags.
+- **News-style hooks:** a named company or person, a strong verb and a real number beat an analytical
+  summary. "Acme just cut 30% of its sales team" beats "Acme's evolving go-to-market strategy". Only with
+  facts from the source.
+
+## Field rules (learned from real drafts sent to real people)
+
+**Messages to people (emails, DMs, replies):**
+- Don't mirror their situation back to them ("What I'm hearing is...", "It sounds like you...", "That kind of
+  patience is hard-earned"). They know their own situation; reflecting it reads as condescending.
+- No sentiment filler: "This is going to be awesome", "means the world", "I hope this finds you well", "I
+  wanted to reach out".
+- Promise only what the writer can deliver. No claims about reach, skills or results the draft doesn't
+  support.
+- Saying it isn't a fit is fine. Pass kindly and leave the door open.
+- Match the recipient's register and energy. Lead with the outcome in plain words; mention the technology
+  only when it helps the reader decide.
+
+**Plain-language mode** (when the user asks for it, or for ads, instructions and scripts): present tense,
+active voice, no adverbs, short sentences with one comma at most, everyday words (grade 3 to 5 reading level),
+say what to do instead of what to avoid, cut any line that can go without changing the meaning.
+
+**Short video scripts (HIDE):** Hook = on-screen text that works with the sound off, a promise that doesn't give
+the answer away, never the product or feature name. Intrigue = line one names the viewer's problem. Delivery =
+one idea. Exit = one thing to do today. "You", not "I built". Never "most people".
+
+**Text inside apps and tools:** keep labels, one short instruction beside a control that isn't obvious, and
+errors that say what to do next. Cut narration of where data came from, repeated disclaimers, intros and
+hedges.
+
+**Formatting for skimmers:** short lines with one idea each, bold keyword at the start of a line, tables for
+comparisons, numbered steps for processes, blank lines between chunks.
+
+**Quotes** keep their original wording, em dashes and all. Only your own sentences follow these rules.
 
 ## Scoring (shown only when asked)
 

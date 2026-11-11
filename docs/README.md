@@ -7,8 +7,19 @@ Pick the guide for what you're writing.
 | Emails: replies, cold emails, follow-ups, saying no | [emails.md](emails.md) |
 | Documents: reports, proposals, memos, how-tos, cover letters | [documents.md](documents.md) |
 | Presentations: slides, speaker notes, talk scripts | [presentations.md](presentations.md) |
+| Short video scripts: Shorts, Reels, TikTok | [video-scripts.md](video-scripts.md) |
 
 Posts, articles and captions need no guide. The prompts handle those by default.
+
+## Plain-language mode
+
+Add this line to any prompt when the reader needs to act on what they read, as with ads, instructions or
+anything sent to a busy person:
+
+```
+Plain-language mode: present tense, short sentences with one comma at most, everyday words,
+say what to do instead of what to avoid, cut any line that can go without changing the meaning.
+```
 
 ## Before you start
 

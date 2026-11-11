@@ -24,7 +24,7 @@ model writes a `[placeholder]` instead of making one up.
 | `tools/slop_check.py` | Counts AI tells in any text. No model, no internet. Same score for every model. |
 | `tools/compare_models.py` | Sends the same drafts to several models and writes a side-by-side report. |
 | `tools/models.example.json` | Example settings for OpenAI, Gemini, Claude, DeepSeek, OpenRouter and Ollama. |
-| `docs/` | How-to guides with copy-paste prompts for [emails](docs/emails.md), [documents](docs/documents.md) and [presentations](docs/presentations.md). |
+| `docs/` | How-to guides with copy-paste prompts for [emails](docs/emails.md), [documents](docs/documents.md), [presentations](docs/presentations.md) and [video scripts](docs/video-scripts.md). |
 | `samples/` | Seven deliberately AI-sounding drafts to test with: a post, an article opener, a cold email, a product blurb, a business update, a slide deck and a report section. |
 | `skill-folders/` | The original skill folders (`SKILL.md` + references), for tools that load skill folders. |
 
@@ -55,6 +55,9 @@ each one has a guide with ready-made prompts:
 | Replies, cold emails, follow-ups, saying no | [docs/emails.md](docs/emails.md) |
 | Reports, proposals, memos, how-tos, cover letters | [docs/documents.md](docs/documents.md) |
 | Slide decks, speaker notes, talk scripts | [docs/presentations.md](docs/presentations.md) |
+| Shorts, Reels and TikTok scripts | [docs/video-scripts.md](docs/video-scripts.md) |
+
+The guides also cover a plain-language mode, text inside apps, and formatting for readers who skim.
 
 ## Test the output (no model needed)
 

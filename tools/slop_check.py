@@ -16,7 +16,16 @@ import sys
 
 # Hard tells: banned outright by the rules. Weight 1 each.
 HARD = {
-    "em_dash": [r"—", r"\s–\s", r"\s--\s"],
+    "em_dash": [r"—", r"–", r"\s--\s"],
+    "mirroring": [
+        r"\bwhat i'?m hearing\b", r"\bwhat i heard you say\b", r"\bit sounds like you\b", r"\bi hear you\b",
+        r"\bif i'?m hearing you\b",
+    ],
+    "pleasantry_filler": [
+        r"\bhope (?:this|my) (?:email |message |note )?finds you well\b", r"\bi wanted to reach out\b",
+        r"\bmeans the world\b", r"\b(?:gonna|going to) be (?:awesome|amazing)\b", r"\bexcited to share\b",
+        r"\bthrilled to (?:share|announce)\b", r"\bbumping this\b",
+    ],
     "throat_clearing": [
         r"\bhere'?s the thing\b", r"\bhere'?s (?:what|why|how|this|that)\b", r"\bthe uncomfortable truth\b",
         r"\bit turns out\b", r"\blet me be clear\b", r"\bthe truth is\b", r"\bi'?ll say it again\b",

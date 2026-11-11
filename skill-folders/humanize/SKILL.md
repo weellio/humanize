@@ -36,7 +36,7 @@ Removal alone leaves clean, correct, forgettable prose. Nobody comments on forge
 3. Active voice. Every sentence has a human subject doing something. No inanimate thing doing a human verb ("the data tells us" becomes someone read it).
 4. Be specific. No vague declaratives ("the implications are significant"). Name the thing.
 5. Put the reader in the room. "You" beats "people." No narrator floating above the scene.
-6. Vary rhythm. Mix sentence lengths. Two items beat three. No em dashes.
+6. Vary rhythm. Mix sentence lengths. Two items beat three. No em dashes or en dashes (ranges use a hyphen).
 7. Trust readers. State facts directly. Skip softening and hand-holding.
 8. Cut quotables. If a line sounds like a pull-quote, rewrite it.
 
@@ -80,6 +80,7 @@ Pass at 56/80 with no dimension below its floor. Substance floors sit higher on 
 - [references/voice.md](references/voice.md): calibration and adding substance, with examples
 - [references/engagement.md](references/engagement.md): LinkedIn and article tuning
 - [references/examples.md](references/examples.md): before/after rewrites
+- [references/field-lessons.md](references/field-lessons.md): rules from real use. Messages to people (no mirroring, no sentiment filler, promise only what's true), plain-language mode, HIDE video scripts, news hooks, in-app text, formatting for skimmers, quotes keep their wording. Read it for emails, DMs, scripts and UI copy.
 
 ## Credit
 

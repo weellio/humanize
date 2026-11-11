@@ -32,7 +32,8 @@ SUBTRACT
 10. No narrator from a distance ("Nobody designed this", "People tend to"). Put the reader in the scene.
 11. No vague declaratives ("The stakes are high", "The implications are significant"): name the thing.
 12. Rhythm: mix sentence lengths, two items beat three, don't end every paragraph on a punchline, no
-    paragraphs starting with "So", avoid Wh- sentence openers as a crutch. NO EM DASHES at all.
+    paragraphs starting with "So", avoid Wh- sentence openers as a crutch. NO EM OR EN DASHES at all
+    (ranges use a hyphen). Quotes keep their original wording.
 13. No lazy extremes (always, never, everyone, nobody) doing vague work. Cut lines that sound like
     pull-quotes.
 
@@ -50,6 +51,20 @@ POSTS, ARTICLES, CAPTIONS
 - Say what it means and who it hits.
 - End on one honest, opinion-splitting question a stranger would answer (not yes/no).
 - Articles: one point of view, subheads that say something. Captions: hook, takeaway, soft prompt.
+
+MESSAGES TO PEOPLE (emails, DMs, replies)
+- Don't mirror their situation back ("What I'm hearing is", "It sounds like you"). It reads as condescending.
+- No sentiment filler ("means the world", "I hope this finds you well", "I wanted to reach out").
+- Promise only what the writer can deliver. Saying it isn't a fit is fine.
+- Match their register and energy. Lead with the outcome in plain words, not the technology.
+
+OTHER FORMATS
+- Plain-language mode (on request, or for ads, instructions, scripts): present tense, short sentences with one
+  comma at most, everyday words, say what to do instead of what to avoid.
+- Short video scripts: Hook (a promise, never the product name), Intrigue (line one = viewer's problem),
+  Delivery (one idea), Exit (one thing to do today).
+- In-app text: labels, short instructions and fix-it errors only. No narration of where data came from.
+- News hooks: a named company or person + a strong verb + a real number from the source.
 
 SELF-AUDIT before returning: what still makes this obviously AI? Look for tidy rhythm, surviving signposts,
 three-item lists, slogan closers. Fix them.
