@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+results/
+tools/results/
+# your own model list may name private endpoints; keys belong in environment variables
+tools/models.json

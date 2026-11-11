@@ -1,0 +1,9 @@
+## Executive Summary
+
+This report provides a comprehensive overview of the Q2 customer onboarding initiative. In today's fast-paced environment, it is important to note that onboarding plays a pivotal role in long-term retention.
+
+Overall, the initiative has delivered significant results. Activation rose from 31% to 44%, and the average time to first project fell from 9 days to 5 days. These improvements stand as a testament to the hard work of the entire team.
+
+## Recommendations
+
+Moving forward, it is recommended that the organization continue to leverage the new onboarding flow and double down on in-app guidance. Additionally, stakeholders should consider exploring opportunities to further streamline the process in order to unlock additional value.

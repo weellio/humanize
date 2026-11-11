@@ -1,0 +1,27 @@
+Slide 1
+Title: Introduction
+- Welcome and overview
+- Our journey so far
+- What lies ahead
+Notes: Good morning everyone! In this presentation, we'll delve into how our team has been navigating the evolving landscape of customer support.
+
+Slide 2
+Title: Key Challenges
+- Response times
+- Customer satisfaction
+- Team bandwidth
+Notes: It's worth noting that these challenges are deeply interconnected. Response times went from 4 hours to 11 hours this year. Let that sink in.
+
+Slide 3
+Title: Our Solution
+- Seamless AI-powered triage
+- Robust knowledge base
+- Enhanced collaboration
+Notes: This isn't just a tool. It's a game-changer that will fundamentally transform how we work.
+
+Slide 4
+Title: Next Steps
+- Pilot in March
+- Full rollout in Q2
+- Continuous improvement
+Notes: Moving forward, we'll continue to leverage these insights to unlock even more value. Thank you!
